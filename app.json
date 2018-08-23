@@ -1,0 +1,9 @@
+{
+  "name": "Prediction",
+  "displayName": "Prediction",
+  "version": "1.0",
+  "env": "prod",
+//  "env": "dev",
+
+  "server_url": "https://prediction.vc"
+}
