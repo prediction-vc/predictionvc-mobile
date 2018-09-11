@@ -19,7 +19,7 @@ export class LeaderboardTable extends Component {
       loading: true,
       users: [],
       me: null,
-      days: '30d',              // '7d' or '30d'
+      days: '7d',              // '7d' or '30d'
       leaderboardType,     // 0: Trading, 1: Contribution
     };
 
