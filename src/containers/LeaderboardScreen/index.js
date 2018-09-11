@@ -50,7 +50,7 @@ class _LeaderboardScreen extends Component {
           />
 
           <LeaderboardTable
-            tabLabel='Contribution'
+            tabLabel='Research'
             leaderboardType={1}
             user={user}
           />
