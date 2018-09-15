@@ -11,8 +11,20 @@ export const Prediction = {
     return get(`project/${project}`, { });
   },
 
-  async getNews() {
-    return post('user/tokens/news', { authorize: true, store: USER_TOKEN_NEWS });
+  async getNews(sources) {
+    return post('news', { body: {sources: sources}, authorize: false, store: USER_TOKEN_NEWS });
+  },
+
+  // TODO: Eventually we'll get this from the server, so just change the implementation of the method, calls should remain the same
+  getNewsSources() {
+    return  [
+      {name: 'coindesk.com', active: true},
+      {name: 'ccn.com', active: true},
+      {name: 'bitcoin.com', active: true},
+      {name: 'cointelegraph.com', active: true},
+      {name: 'bitcoinist.com', active: true},
+      {name: 'cryptovest.com', active: true}
+    ];
   },
 
   async updateTokenToPortfolio(body) {

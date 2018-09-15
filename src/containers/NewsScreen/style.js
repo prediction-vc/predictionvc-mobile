@@ -9,7 +9,6 @@ export const styles = EStyleSheet.create({
   newsImage: {
     width: 50,
     height: 50,
-    borderRadius: 25,
   },
   borderBottomView: {
     position: 'absolute',

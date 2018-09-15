@@ -33,7 +33,7 @@ class _NewsScreen extends Component {
 
   async getNews() {
     try {
-      const news = await Prediction.getNews();
+      const news = await Prediction.getNews(Prediction.getNewsSources());
       this.props.setProjectTokenNews(news.articles);
       let symbols = [];
       news.articles.map((article) => {
@@ -75,14 +75,6 @@ class _NewsScreen extends Component {
     return `${moment(startTime).format('MMMM Do YYYY h.mm A')}`
   }
 
-  getNewsIcon(article) {
-    const { tokenInformation } = this.state;
-    const tokenInfo = tokenInformation.find(token => article.currency === token.symbol);
-    if (tokenInfo) {
-      return {uri: tokenInfo.imageUrl};
-    }
-    return require('../../assets/images/placeholder.png');
-  }
   // mark - Button Action end  ////////////
 
   // mark - Render components start
@@ -91,7 +83,7 @@ class _NewsScreen extends Component {
       style={[CommonStyle.flexRow, styles.newsItemContainer]}
       onPress={() => {this.onPressNewsItem(rowData)}}
     >
-      <Image style={styles.newsImage} size={45} source={this.getNewsIcon(rowData)}/>
+      <Image style={styles.newsImage} size={45} source={{uri: rowData.image}}/>
       <View style={[CommonStyle.flexOne, styles.newsContent]}>
         <Text style={styles.newsTitle} numberOfLines={1}>{rowData.title}</Text>
         <View style={[CommonStyle.flexRow, styles.newsDescriptionContainer]}>

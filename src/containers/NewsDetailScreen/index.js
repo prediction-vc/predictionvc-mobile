@@ -1,38 +1,29 @@
-import React, { Component } from 'react';
-import { View, WebView, ActivityIndicator } from 'react-native';
-import { CommonStyle } from '../styles';
-import { NavigationBar } from '../../components';
+import React, { Component } from 'react'
+import { Image, ScrollView, Text, View } from 'react-native'
+import { CommonStyle } from '../styles'
+import { NavigationBar } from '../../components'
+import moment from 'moment'
 
 class _NewsDetailScreen extends Component {
-
   // mark - Initialize Start
-  constructor(props) {
-    super(props);
-    const { params } = props.navigation.state;
+  constructor (props) {
+    super(props)
+    const {params} = props.navigation.state
     this.state = {
-      loading: false,
       article: params ? params.article : null
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
   }
 
   // mark - Actions
   onBackButtonPressed = () => {
-    this.props.navigation.goBack();
-  };
+    this.props.navigation.goBack()
+  }
 
-  onLoadStart = () => {
-    this.setState({ loading: true });
-  };
-
-  onLoadEnd = () => {
-    this.setState({ loading: false });
-  };
-
-  render() {
-    const { article, loading } = this.state;
+  render () {
+    const {article} = this.state
     return (
       <View style={CommonStyle.container}>
         <NavigationBar
@@ -40,22 +31,48 @@ class _NewsDetailScreen extends Component {
           backButton={true}
           onBackButtonPress={this.onBackButtonPressed}
         />
-        <View style={CommonStyle.container}>
-          <View style={[CommonStyle.absoluteFill, CommonStyle.center]}>
-            {loading && <ActivityIndicator size='large'/>}
+        <ScrollView style={[CommonStyle.container, CommonStyle.flexCol, {marginLeft: 12, marginRight: 12}]}>
+          <View style={[{justifyContent: 'center', alignItems: 'center'}, styles.marginTop]}>
+            <Image
+              style={{
+                alignSelf: 'center',
+                height: 150,
+                width: 150,
+              }}
+              source={{uri: article.image}}
+              resizeMode="cover"
+            />
           </View>
-          <WebView
-            scalesPageToFit
-            source={{uri: article.link}}
-            style={[CommonStyle.flexOne, { backgroundColor: 'rgba(0, 0, 0, 0)' }]}
-            onLoadStart={this.onLoadStart}
-            onLoadEnd={this.onLoadEnd}
-            onError={this.onLoadEnd}
-          />
-        </View>
+          <View style={styles.marginTop}>
+            <Text style={{fontSize: 20, fontWeight: 'bold',}}>{article.title}</Text>
+          </View>
+          <View style={[CommonStyle.container, CommonStyle.flexRow, styles.marginTop, {alignItems: 'center'}]}>
+            <Text style={[{color: 'grey', textAlignVertical: 'center'}, {marginRight: 12}]}>
+              {moment(article.timestamp).fromNow()}</Text>
+            <Text style={{
+              backgroundColor: '#1abc9c',
+              color: 'white',
+              fontWeight: 'bold',
+              textAlignVertical: 'center',
+              paddingLeft: 5,
+              paddingRight: 5
+            }}>
+              {article.source}
+            </Text>
+          </View>
+          <Text style={styles.marginTop}>
+            {article.text}
+          </Text>
+        </ScrollView>
       </View>
-    );
+    )
   }
 }
 
-export const NewsDetailScreen = _NewsDetailScreen;
+const styles = {
+  marginTop: {
+    marginTop: 12
+  }
+}
+
+export const NewsDetailScreen = _NewsDetailScreen
