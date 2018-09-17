@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Image, ScrollView, Text, View } from 'react-native'
 import { CommonStyle } from '../styles'
+import {styles} from './style'
 import { NavigationBar } from '../../components'
 import moment from 'moment'
 
@@ -34,31 +35,26 @@ class _NewsDetailScreen extends Component {
         <ScrollView style={[CommonStyle.container, CommonStyle.flexCol, {marginLeft: 12, marginRight: 12}]}>
           <View style={[{justifyContent: 'center', alignItems: 'center'}, styles.marginTop]}>
             <Image
-              style={{
-                alignSelf: 'center',
-                height: 150,
-                width: 150,
-              }}
+              style={[styles.newsImage]}
               source={{uri: article.image}}
               resizeMode="cover"
             />
           </View>
           <View style={styles.marginTop}>
-            <Text style={{fontSize: 20, fontWeight: 'bold',}}>{article.title}</Text>
+            <Text style={[styles.newsTitle]}>{article.title}</Text>
           </View>
           <View style={[CommonStyle.container, CommonStyle.flexRow, styles.marginTop, {alignItems: 'center'}]}>
-            <Text style={[{color: 'grey', textAlignVertical: 'center'}, {marginRight: 12}]}>
-              {moment(article.timestamp).fromNow()}</Text>
-            <Text style={{
-              backgroundColor: '#1abc9c',
-              color: 'white',
-              fontWeight: 'bold',
-              textAlignVertical: 'center',
-              paddingLeft: 5,
-              paddingRight: 5
-            }}>
+            <Text style={[styles.timeAgo]}>
+              {moment(article.timestamp).fromNow()}
+            </Text>
+            <Text style={styles.tag}>
               {article.source}
             </Text>
+            {
+              article.locations.map((tag) => {
+                return (<Text style={styles.tag} key={tag.name}>{tag.name}</Text>)
+              })
+            }
           </View>
           <Text style={styles.marginTop}>
             {article.text}
@@ -66,12 +62,6 @@ class _NewsDetailScreen extends Component {
         </ScrollView>
       </View>
     )
-  }
-}
-
-const styles = {
-  marginTop: {
-    marginTop: 12
   }
 }
 
