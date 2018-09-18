@@ -6,6 +6,7 @@ export * from './ForgotPasswordScreen';
 export * from './PortfolioScreen';
 export * from './NewsScreen';
 export * from './NewsDetailScreen';
+export * from './NewsFilterScreen';
 export * from './SearchScreen';
 export * from './AddProjectScreen';
 export * from './SettingsScreen';

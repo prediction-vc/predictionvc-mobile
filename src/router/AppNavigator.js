@@ -10,6 +10,7 @@ import {
   ForgotPasswordScreen,
   PortfolioScreen,
   NewsScreen,
+  NewsFilterScreen,
   NewsDetailScreen,
   SearchScreen,
   AddProjectScreen,
@@ -49,6 +50,7 @@ export const SettingsNavigator = StackNavigator({
 
 export const NewsNavigator = StackNavigator({
   NewsScreen: { screen: NewsScreen },
+  NewsFilterScreen: { screen: NewsFilterScreen },
   NewsDetailScreen: { screen: NewsDetailScreen },
 }, {
   initialRouteName: 'NewsScreen',

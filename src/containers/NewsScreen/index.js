@@ -33,7 +33,8 @@ class _NewsScreen extends Component {
 
   async getNews () {
     try {
-      const news = await Prediction.getNews(Prediction.getNewsSources())
+      let newsSources = await Prediction.getNewsSources()
+      const news = await Prediction.getNews(newsSources)
       this.props.setProjectTokenNews(news.articles)
       let symbols = []
       news.articles.map((article) => {
@@ -55,6 +56,10 @@ class _NewsScreen extends Component {
   // mark - Button Actions start
   onMoreButtonPressed = () => {
     // alert('More button pressed');
+  }
+
+  onRightButtonPressed = () => {
+    this.props.navigation.navigate('NewsFilterScreen', {});
   }
 
   onPressNewsItem = (newsItem) => {
@@ -112,6 +117,8 @@ class _NewsScreen extends Component {
         <NavigationBar
           titleLabel='News'
           backButton={false}
+          rightButtonTitle={'...'}
+          onRightButtonPress={this.onRightButtonPressed}
         />
         {this.renderNewsContent()}
       </View>

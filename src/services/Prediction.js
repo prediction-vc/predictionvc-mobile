@@ -1,5 +1,5 @@
 import { post, get } from './request';
-import { PROJECT_TOKEN_INFO, USER_TOKEN_NEWS } from './preferences';
+import { NEWS_SOURCES, Preferences, PROJECT_TOKEN_INFO, USER_TOKEN_NEWS } from './preferences'
 
 export const Prediction = {
 
@@ -16,8 +16,12 @@ export const Prediction = {
   },
 
   // TODO: Eventually we'll get this from the server, so just change the implementation of the method, calls should remain the same
-  getNewsSources() {
-    return  [
+  async getNewsSources () {
+    let newsSources = await Preferences.getItem(NEWS_SOURCES)
+    if (newsSources && newsSources.length > 0) {
+      return newsSources
+    }
+    return [
       {name: 'coindesk.com', active: true},
       {name: 'ccn.com', active: true},
       {name: 'bitcoin.com', active: true},
@@ -25,6 +29,10 @@ export const Prediction = {
       {name: 'bitcoinist.com', active: true},
       {name: 'cryptovest.com', active: true}
     ];
+  },
+
+  setNewsSources(newsSources) {
+    Preferences.setItem(NEWS_SOURCES, newsSources)
   },
 
   async updateTokenToPortfolio(body) {
