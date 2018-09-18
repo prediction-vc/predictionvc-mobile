@@ -50,10 +50,9 @@ class _NewsDetailScreen extends Component {
             <Text style={styles.tag}>
               {article.source}
             </Text>
-            {
-              article.locations.map((tag) => {
+            { article.locations != null ?  (article.locations.map((tag) => {
                 return (<Text style={styles.tag} key={tag.name}>{tag.name}</Text>)
-              })
+              }) ):  ('')
             }
           </View>
           <Text style={styles.marginTop}>
