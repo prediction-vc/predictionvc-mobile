@@ -9,7 +9,6 @@ export const MixpanelService = {
       await mixpanelInstance.sharedInstanceWithToken(LOCAL_CONFIG.MIXPANEL.PROJECT_TOKEN)
       await mixpanelInstance.identify(userId)
       await mixpanelInstance.initPushHandling(LOCAL_CONFIG.MIXPANEL.GOOGLE_SENDER_ID)
-      await mixpanelInstance.setPushRegistrationId(LOCAL_CONFIG.MIXPANEL.PUSH_REGISTRATION_ID)
     } catch (e) {
       console.log('MixPanel error', e)
     }

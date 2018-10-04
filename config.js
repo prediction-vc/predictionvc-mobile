@@ -15,7 +15,6 @@ export const APP_CONTACT = `${App.server_url}/platform/contact`;
 export const MIXPANEL = {
   GOOGLE_SENDER_ID: '1023812219271',
   PROJECT_TOKEN: '873fa4dd540c036fc53d3b434f457b3b',
-  PUSH_REGISTRATION_ID: 'AAAA7l_2sYc:APA91bFfN03lc6dJ40X4d2IDYl--nyiTNsb9awKTfD8KaJrgjZRp4XUoc7ctBWaJICB7lj3XWNd-9ukXy_sQvuRAH-tL9u-dO7sl4NzabQYVf-dV9LLfAKaUEAULZRfb83OME0DX7cuK',
 }
 
 export const APP_STORE_LINK = Platform.OS === 'ios' ?
