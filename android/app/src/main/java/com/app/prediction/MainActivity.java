@@ -1,4 +1,4 @@
-package com.app.predictionvc;
+package com.app.prediction;
 
 import com.facebook.react.ReactActivity;
 
