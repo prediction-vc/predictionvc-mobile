@@ -7,6 +7,7 @@ import {
   PROJECT_TOKEN_INFO,
   USER_TOKEN_NEWS
 } from './preferences';
+import { MixpanelService } from './MixpanelService'
 
 export const Auth = {
 
@@ -36,6 +37,7 @@ export const Auth = {
       console.log("JWT TOKEN:", jwt);
       const jwtDecoded = jwtDecode(jwt);
       if ((new Date().getTime()) < jwtDecoded.exp * 1000) {
+        MixpanelService.init(jwtDecoded._id)
         return true;
       }
     }
