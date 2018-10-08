@@ -37,7 +37,7 @@ export const Auth = {
       console.log("JWT TOKEN:", jwt);
       const jwtDecoded = jwtDecode(jwt);
       if ((new Date().getTime()) < jwtDecoded.exp * 1000) {
-        MixpanelService.init(jwtDecoded._id)
+        MixpanelService.init(jwtDecoded._id, jwtDecoded.email)
         return true;
       }
     }

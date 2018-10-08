@@ -10,4 +10,6 @@ end
 target 'Prediction' do
 xcodeproj 'Prediction.xcodeproj'
 pod 'Mixpanel'
+  pod 'react-native-config', :path => '../node_modules/react-native-config'
+
 end
