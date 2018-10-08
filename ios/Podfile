@@ -1,0 +1,13 @@
+
+platform :ios, '8.0'
+
+xcodeproj 'Prediction.xcodeproj'
+
+def mixpanel_pods
+pod 'Mixpanel'
+end
+
+target 'Prediction' do
+xcodeproj 'Prediction.xcodeproj'
+pod 'Mixpanel'
+end

@@ -31,6 +31,13 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+
+  UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeSound |
+                                          UIUserNotificationTypeAlert | UIUserNotificationTypeBadge categories:nil];
+
+  [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+  [[UIApplication sharedApplication] registerForRemoteNotifications];
+
   return YES;
 }
 
