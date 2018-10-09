@@ -188,7 +188,6 @@ class _Onboarding extends Component {
           {
             _.range(0, tutorials.length).map((index) => {
               const data = tutorials[index];
-              console.log(JSON.stringify(data));
               if (data.type === 1) {
                 return <TutorialStyle1
                   key={`tutorial_${index}`}
