@@ -2,7 +2,6 @@ import { AsyncStorage } from 'react-native';
 import { Base64 } from 'js-base64';
 
 const STORAGE_KEY_ENCRYPTED = 'preferences';
-const LOADING_PREFERENCES_TIMEOUT = 10000; // milliseconds
 
 async function loadRawPreferences() {
   try {
@@ -27,61 +26,51 @@ async function saveRawPreferences(preferences) {
   }
 }
 
-let preferences = null;
-loadRawPreferences().then((json) => {
-  if (json) {
-    preferences = json;
-  } else {
-    preferences = {};
-  }
-});
+class Preference {
+  preferences: {};
 
-const timeStartLoadingPreferences = new Date().getTime();
-
-function waitLoadingPreferences() {
-  return new Promise((resolve, reject) => {
-    if (preferences) {
-      resolve();
-    } else {
-      if (new Date().getTime() - timeStartLoadingPreferences > LOADING_PREFERENCES_TIMEOUT) {
-        reject(new Error('Timeout: Loading AsyncStorage'));
-      }
-      setTimeout(() => {
-        waitLoadingPreferences().then(resolve, reject);
-      }, 1000);
+  async init() {
+    try {
+      this.preferences = await loadRawPreferences();
+    } catch (e) {
+      console.log('Preferences.init error', e)
     }
-  });
-}
-
-export const Preferences = {
+  };
 
   async getAll() {
-    await waitLoadingPreferences();
-    return preferences;
-  },
+    return this.preferences;
+  };
 
   async getItem(key) {
-    await waitLoadingPreferences();
-    return preferences[key];
-  },
+    if (!this.preferences){
+      await this.init();
+    }
+    return this.preferences[key];
+  };
 
   async setItem(key, value) {
-    await waitLoadingPreferences();
-    preferences[key] = value;
-    saveRawPreferences(preferences).then();
-  },
+    if (!this.preferences){
+      await this.init();
+    }
+    this.preferences[key] = value;
+    await saveRawPreferences(this.preferences)
+  };
 
   async removeItem(key) {
-    await waitLoadingPreferences();
-    delete preferences[key];
-    saveRawPreferences(preferences).then();
-  },
+    if (!this.preferences){
+      await this.init();
+    }
+    delete this.preferences[key];
+    await saveRawPreferences(this.preferences)
+  };
 
   async removeMultiItem(keys) {
-    await waitLoadingPreferences();
-    keys.map(key => delete preferences[key]);
-    saveRawPreferences(preferences).then();
-  },
+    if (!this.preferences){
+      await this.init();
+    }
+    keys.map(key => delete this.preferences[key]);
+    await saveRawPreferences(this.preferences)
+  };
 
   async parseJsonItem(key) {
     const json = await this.getItem(key);
@@ -89,20 +78,22 @@ export const Preferences = {
       return JSON.parse(json);
     }
     return null;
-  },
+  };
 
   async saveItemAsJson(key, value) {
     if (value) {
       return this.setItem(key, JSON.stringify(value));
     }
     return this.removeItem(key);
-  },
+  };
 
   async clear() {
     await AsyncStorage.clear();
   }
 
-};
+}
+
+export const Preferences = new Preference();
 
 export const JWT_TOKEN = 'jwt';
 export const USER_PROFILE_INFO  = 'USER_PROFILE_INFO';
