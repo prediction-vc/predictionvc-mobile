@@ -34,7 +34,6 @@ export const Auth = {
   async isAuthenticated() {
     const jwt = await Preferences.getItem(JWT_TOKEN);
     if (jwt) {
-      console.log("JWT TOKEN:", jwt);
       const jwtDecoded = jwtDecode(jwt);
       if ((new Date().getTime()) < jwtDecoded.exp * 1000) {
         MixpanelService.init(jwtDecoded._id, jwtDecoded.email)

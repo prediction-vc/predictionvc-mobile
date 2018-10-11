@@ -1,24 +1,36 @@
-import Config from 'react-native-config'
+import * as App from './app.json'
+import * as LocalConfig from './app.local.json'
+import * as StagingConfig from './app.staging.json'
+import * as ProductionConfig from './app.production.json'
 
-export const APP_FAQ = `${Config.SERVER_URL}.freshdesk.com/support/home`
-export const APP_PRIVACY_POLICY = `${Config.SERVER_URL}/platform/privacy-policy`
-export const APP_TERMS_SERVICE = `${Config.SERVER_URL}/platform/terms-of-use`
-export const APP_CONTACT = `${Config.SERVER_URL}/platform/contact`
-export const MIXPANEL = {
-  GOOGLE_SENDER_ID: Config.MIXPANEL_GOOGLE_SENDER_ID,
-  PROJECT_TOKEN: Config.MIXPANEL_PROJECT_TOKEN,
+let loadConfig = function () {
+  let logColor = 'green'
+  if (App.env === 'production') {
+    Config = ProductionConfig
+    logColor = 'red'
+  } else if (App.env === 'staging') {
+    Config = StagingConfig
+    logColor = 'orange'
+  } else {
+    Config = LocalConfig
+  }
+  console.log('%c Env: ' + Config.env, 'background: ' + logColor + '; color: white; display: block;')
 }
-console.log('%c Env: ' + Config.ENV, 'background: green; color: white; display: block;');
+
+loadConfig()
 
 export const LOCAL_CONFIG = {
-  ENV: Config.ENV,
-  SERVER_URL: Config.SERVER_URL,
-  API_URL: Config.API_URL,
-  ALGOLIA_APP_ID: Config.ALGOLIA_APP_ID,
-  ALGOLIA_API_KEY: Config.ALGOLIA_API_KEY,
-  APP_FAQ,
-  APP_PRIVACY_POLICY,
-  APP_TERMS_SERVICE,
-  APP_CONTACT,
-  MIXPANEL
+  ENV: Config.env,
+  SERVER_URL: Config.serverUrl,
+  API_URL: Config.apiUrl,
+  ALGOLIA_APP_ID: Config.algolia.appId,
+  ALGOLIA_API_KEY: Config.algolia.apiKey,
+  APP_FAQ: `${Config.serverUrl}.freshdesk.com/support/home`,
+  APP_PRIVACY_POLICY: `${Config.serverUrl}/platform/privacy-policy`,
+  APP_TERMS_SERVICE: `${Config.serverUrl}/platform/terms-of-use`,
+  APP_CONTACT: `${Config.serverUrl}/platform/contact`,
+  MIXPANEL: {
+    GOOGLE_SENDER_ID: Config.mixpanel.googleSenderId,
+    PROJECT_TOKEN: Config.mixpanel.projectToken,
+  }
 }

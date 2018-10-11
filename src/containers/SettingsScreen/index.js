@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Image, View, Text, ListView, TouchableOpacity, Linking, Alert } from 'react-native';
-import { NavigationActions } from 'react-navigation';
-import { NavigationBar, RoundButton } from '../../components';
-import { CommonStyle } from '../styles';
-import { styles } from './style';
-import { LOCAL_CONFIG } from '../../../config';
-import { Constants } from '../../utils';
-import { Auth } from '../../services';
-import { clearUserInformation } from '../../actions/user';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Alert, ListView, Text, TouchableOpacity, View } from 'react-native'
+import { NavigationActions } from 'react-navigation'
+import { NavigationBar } from '../../components'
+import { CommonStyle } from '../styles'
+import { styles } from './style'
+import { LOCAL_CONFIG } from '../../../config'
+import { Auth } from '../../services'
+import { clearUserInformation } from '../../actions/user'
 
 const SettingsList = [
   {
@@ -56,7 +55,7 @@ const SettingsList = [
     separator: true
   },
   {
-    title: 'About',
+    title: 'About ' + (LOCAL_CONFIG.ENV === 'production' ? '' : '(' + LOCAL_CONFIG.ENV + ')'),
     type: 'link',
     destination: LOCAL_CONFIG.APP_CONTACT,
     style: 'subitem',

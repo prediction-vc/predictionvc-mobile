@@ -27,11 +27,14 @@ async function saveRawPreferences(preferences) {
 }
 
 class Preference {
-  preferences: {};
+  preferences: undefined;
 
   async init() {
     try {
       this.preferences = await loadRawPreferences();
+      if (!this.preferences) {
+        await saveRawPreferences({'testing':'yup'})
+      }
     } catch (e) {
       console.log('Preferences.init error', e)
     }

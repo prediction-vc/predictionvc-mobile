@@ -16,8 +16,8 @@ class _LoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: LOCAL_CONFIG.ENV === 'dev' ? 'mobileuser@mobile.com' : '',
-      password: LOCAL_CONFIG.ENV === 'dev' ? 'mobileuser123' : '',
+      email: LOCAL_CONFIG.ENV === 'staging' ? 'vuk+prediction@prediction.vc' : '',
+      password: LOCAL_CONFIG.ENV === 'staging' ? 'vuk+prediction!' : '',
       loading: false,
     }
   }
