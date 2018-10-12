@@ -1,0 +1,14 @@
+{
+  "env": "production",
+  "serverUrl": "https://prediction.vc",
+  "apiUrl": "https://prediction.vc/api",
+  "algolia": {
+    "appId": "1BR267WPJC",
+    "apiKey": "2e8732a18aa6eabe08ad40e6e28a8706"
+  },
+  "mixpanel": {
+    "googleSenderId": "1023812219271",
+    "projectToken": "873fa4dd540c036fc53d3b434f457b3b"
+  }
+}
+

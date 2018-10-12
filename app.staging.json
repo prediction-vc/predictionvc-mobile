@@ -1,0 +1,13 @@
+{
+  "env": "staging",
+  "serverUrl": "https://staging-predictionvc.herokuapp.com/",
+  "apiUrl": "https://staging-predictionvc.herokuapp.com/api",
+  "algolia": {
+    "appId": "1BR267WPJC",
+    "apiKey": "2e8732a18aa6eabe08ad40e6e28a8706"
+  },
+  "mixpanel": {
+    "googleSenderId": "1023812219271",
+    "projectToken": "5ba79e2786caa321974a2da34cb507f3"
+  }
+}
