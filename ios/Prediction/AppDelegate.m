@@ -11,6 +11,8 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <Mixpanel/Mixpanel.h>
+#import <React/RCTPushNotificationManager.h>
 
 @implementation AppDelegate
 
@@ -32,13 +34,54 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
 
-  UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeSound |
-                                          UIUserNotificationTypeAlert | UIUserNotificationTypeBadge categories:nil];
-
-  [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-  [[UIApplication sharedApplication] registerForRemoteNotifications];
+//  UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeSound |
+//                                          UIUserNotificationTypeAlert | UIUserNotificationTypeBadge categories:nil];
+//
+//  [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+//  [[UIApplication sharedApplication] registerForRemoteNotifications];
 
   return YES;
+}
+
+//- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+//  Mixpanel *mixpanel = [Mixpanel sharedInstance];
+//  [mixpanel.people addPushDeviceToken:deviceToken];
+//
+//  const char *data = [deviceToken bytes];
+//  NSMutableString *token = [NSMutableString string];
+//
+//  for (NSUInteger i = 0; i < [deviceToken length]; i++) {
+//    [token appendFormat:@"%02.2hhX", data[i]];
+//  }
+//
+//  NSLog(@"Token %@", token);
+//}
+
+// Required to register for notifications
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+  [RCTPushNotificationManager didRegisterUserNotificationSettings:notificationSettings];
+}
+// Required for the register event.
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+  [RCTPushNotificationManager didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+}
+// Required for the notification event. You must call the completion handler after handling the remote notification.
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+  [RCTPushNotificationManager didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
+}
+// Required for the registrationError event.
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+  [RCTPushNotificationManager didFailToRegisterForRemoteNotificationsWithError:error];
+}
+// Required for the localNotification event.
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+  [RCTPushNotificationManager didReceiveLocalNotification:notification];
 }
 
 @end
