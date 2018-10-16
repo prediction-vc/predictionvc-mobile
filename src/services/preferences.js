@@ -45,10 +45,15 @@ class Preference {
   };
 
   async getItem(key) {
-    if (!this.preferences){
-      await this.init();
+    try {
+      if (!this.preferences){
+        await this.init();
+      }
+      return this.preferences[key];
+    } catch (e) {
+      return {}
     }
-    return this.preferences[key];
+
   };
 
   async setItem(key, value) {
