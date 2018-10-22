@@ -38,8 +38,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3E52E1D3216F740700B2730B"
-               BuildableName = "Production.app"
-               BlueprintName = "Production"
+               BuildableName = "Prediction.app"
+               BlueprintName = "Prediction"
                ReferencedContainer = "container:Prediction.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -103,8 +103,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3E52E1D3216F740700B2730B"
-            BuildableName = "Production.app"
-            BlueprintName = "Production"
+            BuildableName = "Prediction.app"
+            BlueprintName = "Prediction"
             ReferencedContainer = "container:Prediction.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
