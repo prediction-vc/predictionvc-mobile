@@ -1,6 +1,8 @@
 import queryString from 'query-string';
 import { LOCAL_CONFIG } from '../../config';
 import { Preferences, JWT_TOKEN } from './preferences';
+import { MixpanelService } from './MixpanelService'
+import jwtDecode from 'jwt-decode'
 
 export async function request(_url, { authorize, method, body, store }) {
   let url = _url;
@@ -47,6 +49,10 @@ export async function request(_url, { authorize, method, body, store }) {
     if (store === JWT_TOKEN && result.token) {
       const storageValue = typeof result.token === 'string' ? result.token : JSON.stringify(result.token);
       Preferences.setItem(store, storageValue).then();
+
+      const jwtDecoded = jwtDecode(result.token)
+      await MixpanelService.init(jwtDecoded._id, jwtDecoded.email)
+      await MixpanelService.track(MixpanelService.EVENTS.LOGGED_IN)
     } else if (store !== JWT_TOKEN) {
       Preferences.setItem(store, result).then();
     }

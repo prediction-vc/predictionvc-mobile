@@ -36,7 +36,8 @@ export const Auth = {
     if (jwt) {
       const jwtDecoded = jwtDecode(jwt);
       if ((new Date().getTime()) < jwtDecoded.exp * 1000) {
-        MixpanelService.init(jwtDecoded._id, jwtDecoded.email)
+        await MixpanelService.init(jwtDecoded._id, jwtDecoded.email)
+        await MixpanelService.track(MixpanelService.EVENTS.LOGGED_IN)
         return true;
       }
     }
@@ -44,6 +45,7 @@ export const Auth = {
   },
 
   async logout() {
+    MixpanelService.track(MixpanelService.EVENTS.LOGGED_OUT)
     await Preferences.removeMultiItem([
       JWT_TOKEN,
       USER_PROFILE_INFO,

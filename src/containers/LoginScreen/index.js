@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Image, View, Text } from 'react-native';
-import { NavigationActions } from 'react-navigation';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import EStyleSheet from 'react-native-extended-stylesheet';
-import { CommonStyle } from '../styles';
-import { styles } from './style';
-import { Utils } from '../../utils';
-import { Auth } from "../../services";
-import { LOCAL_CONFIG } from "../../../config";
-import { LogoWithTitle, InputWithLabel, RoundButton, TextButton, Spinner } from '../../components';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Text, View } from 'react-native'
+import { NavigationActions } from 'react-navigation'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import EStyleSheet from 'react-native-extended-stylesheet'
+import { CommonStyle } from '../styles'
+import { styles } from './style'
+import { Utils } from '../../utils'
+import { Auth } from '../../services'
+import { LOCAL_CONFIG } from '../../../config'
+import { InputWithLabel, LogoWithTitle, RoundButton, Spinner, TextButton } from '../../components'
 
 class _LoginScreen extends Component {
 
